@@ -1,12 +1,3 @@
-local origgetgenv = getgenv
-local function getgenv()
-	if type(hookfunction) ~= "function" then
-		return _G	
-	else
-		return origgetgenv()
-	end
-end	
-
 --Services
 getgenv().runService = game:GetService("RunService")
 getgenv().textService = game:GetService("TextService")
@@ -2737,7 +2728,7 @@ function library:Init()
 		end
 	end)
 
-	if type(hookmetamethod) == "function" and islclosure(hookmetamethod) == false then
+	--if type(hookmetamethod) == "function" and islclosure(hookmetamethod) == false then
 		local Old_index
 		Old_index = hookmetamethod(game, "__index", function(t, i)
 			if checkcaller() then return Old_index(t, i) end
@@ -2760,7 +2751,7 @@ function library:Init()
 
 			return Old_new(t, i, v)
 		end)
-	end
+	--end
 	if not getgenv().silent then
 		delay(1, function() self:Close() end)
 	end
